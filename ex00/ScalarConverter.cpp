@@ -10,6 +10,7 @@ ScalarConverter::ScalarConverter()
 
 ScalarConverter::ScalarConverter(const ScalarConverter &cpy)
 {
+	(void)cpy;
     std::cout << BLUE << "Copy ScalarConverter constructor called" << WHITE << std::endl;
 }
 
@@ -20,24 +21,48 @@ ScalarConverter::~ScalarConverter()
 
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter &obj)
 {
+	(void)obj;
 	std::cout << PINK << "Assignment ScalarConverter called" << WHITE << std::endl;
+	return (*this);
 }
 
 // ----------------------------------------- METHODS -------------------------------------------
 
-bool	invalid_value(const std::string &s)
+void	check_float(const std::string &s)
 {
-	int	len = s.size();
-	
-	for (int i = 0 ; i < len ; i++)
-	{
-		if (s[i] < '0' || s[i] > '9')
-			return (false);
-	}
-	return (true);
+	size_t	point_place = s.find('.');
+
+	if (point_place == s.npos)
+		throw std::invalid_argument("Invalid argument");
+}
+
+void	check_double(const std::string &s)
+{
+(void)s;
+}
+
+void	check_int(const std::string &s)
+{
+(void)s;
+
 }
 
 void	ScalarConverter::convert(const std::string &s)
 {
-	invalid_value(s);
+	if (s.size() == 1)
+	{
+		std::cout << "char : " << static_cast<char>(s[0]) << std::endl;
+		std::cout << "int : " << static_cast<int>(s[0]) << std::endl;
+		std::cout << "float : " << static_cast<float>(s[0]) << std::endl;
+		std::cout << "double : " << static_cast<double>(s[0]) << std::endl;
+	}
+	else
+	{
+		if (s.find('f'))
+			check_float(s);
+		else if (s.find('.'))
+			check_double(s);
+		else
+			check_int(s);
+	}
 }
