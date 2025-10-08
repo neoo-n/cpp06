@@ -3,7 +3,9 @@
 # define SCALARCONVERTER_HPP
 
 # include <iostream>
-# include <stdexcept>
+# include <exception>
+# include <cctype>
+# include <cstdlib>
 
 # define BLUE "\033[34m"
 # define WHITE "\033[0m"
