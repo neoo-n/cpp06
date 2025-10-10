@@ -101,6 +101,11 @@ void	check_int(const std::string &s, size_t str_len)
 
 }
 
+void	pseudo_literals(const std::string &s)
+{
+	
+}
+
 void	ScalarConverter::convert(const std::string &s)
 {
 	size_t	point_place = 0;
