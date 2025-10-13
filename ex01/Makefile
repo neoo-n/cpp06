@@ -1,5 +1,5 @@
 NAME	=	serializer
-SRCS	=	main.cpp ScalarConverter.cpp
+SRCS	=	main.cpp Serializer.cpp Data.cpp
 OBJS	=	${SRCS:.cpp=.o}
 CC		=	c++
 CFLAGS	=	-Werror -Wextra -Wall -std=c++98

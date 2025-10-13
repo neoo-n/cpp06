@@ -5,24 +5,28 @@
 
 ScalarConverter::ScalarConverter()
 {
-    std::cout << BLUE << "Default ScalarConverter constructor called" << WHITE << std::endl;
+	if (DEBUG)
+		std::cout << BLUE << "Default ScalarConverter constructor called" << WHITE << std::endl;
 }
 
 ScalarConverter::ScalarConverter(const ScalarConverter &cpy)
 {
 	(void)cpy;
-    std::cout << BLUE << "Copy ScalarConverter constructor called" << WHITE << std::endl;
+	if (DEBUG)
+		std::cout << BLUE << "Copy ScalarConverter constructor called" << WHITE << std::endl;
 }
 
 ScalarConverter::~ScalarConverter()
 {
-    std::cout << YELLOW << "Destructor ScalarConverter called" << WHITE << std::endl;
+	if (DEBUG)
+		std::cout << YELLOW << "Destructor ScalarConverter called" << WHITE << std::endl;
 }
 
 ScalarConverter &ScalarConverter::operator=(const ScalarConverter &obj)
 {
 	(void)obj;
-	std::cout << PINK << "Assignment ScalarConverter called" << WHITE << std::endl;
+	if (DEBUG)
+		std::cout << PINK << "Assignment ScalarConverter called" << WHITE << std::endl;
 	return (*this);
 }
 
@@ -68,14 +72,14 @@ void	check_double_float(const std::string &s, size_t point_place, size_t str_len
 	size_t	i = 0;
 
 	if (point_place != s.rfind('.'))
-		throw std::invalid_argument("Invalid argument 2");
+		throw std::invalid_argument("Invalid argument");
 	if (s[i] == '-' || s[i] == '+')
 		i++;
 	while (i < str_len)
 	{
 		if (!std::isdigit(s[i]))
 			if (s[i] != '.' && !(s[i] == 'f' && i == str_len - 1))
-				throw std::invalid_argument("Invalid argument 1");
+				throw std::invalid_argument("Invalid argument");
 		i++;
 	}
 	check_put_zero(s, point_place, str_len, put_zero);
@@ -103,7 +107,7 @@ void	pseudo_literals(const std::string &s)
 	if (good)
 		print_pl(s);
 	else
-		throw std::invalid_argument("Invalid argument 5");
+		throw std::invalid_argument("Invalid argument");
 }
 
 void	check_int(const std::string &s, size_t str_len)

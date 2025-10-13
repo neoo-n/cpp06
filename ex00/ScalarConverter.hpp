@@ -12,6 +12,7 @@
 # define RED "\033[0;31m"
 # define PINK "\033[1;35m"
 # define YELLOW "\033[0;33m"
+# define DEBUG false
 
 class ScalarConverter
 {
