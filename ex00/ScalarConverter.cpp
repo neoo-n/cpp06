@@ -40,25 +40,19 @@ void	check_put_zero(const std::string &s, size_t point_place, size_t str_len, bo
 		}
 }
 
-void	check_float(const std::string &s, size_t point_place, size_t str_len)
+void	print_double_float(const std::string &s, bool put_zero)
 {
 	float		value;
-	bool		put_zero = true;
 
-	for (size_t i = 0; i < str_len; i++)
-	{
-		if (!isdigit(s[i]))
-			if (s[i] != '.' && !(s[i] == 'f' && i == str_len - 1))
-				throw std::invalid_argument("Invalid argument 1");
-	}
 	value = atof(s.c_str());
-	if (value >= 20 && value <= 126)
-		std::cout << "char : " << static_cast<char>(value) << std::endl;
+	if (value >= 32 && value <= 126)
+		std::cout << "char : \'" << static_cast<char>(value) << "\'" << std::endl;
+	else if ((value >= 0 && value < 32) || value == 127)
+		std::cout << "char : Non displayable" << std::endl;
 	else
 		std::cout << "char : impossible" << std::endl;
 	std::cout << "int : " << static_cast<int>(value) << std::endl;
 	std::cout << "float : " << static_cast<float>(value);
-	check_put_zero(s, point_place, str_len, put_zero);
 	if (put_zero)
 		std::cout << ".0";
 	std::cout << "f" << std::endl;
@@ -70,18 +64,18 @@ void	check_float(const std::string &s, size_t point_place, size_t str_len)
 
 void	check_double_float(const std::string &s, size_t point_place, size_t str_len)
 {
+	bool		put_zero = true;
+
 	if (point_place != s.rfind('.'))
 		throw std::invalid_argument("Invalid argument 2");
-	if (s.find('f'))
-		check_float(s, point_place, str_len);
-	else
+	for (size_t i = 0; i < str_len; i++)
 	{
-		for (size_t i = 0; i < str_len; i++)
-		{
-			if (!isdigit(s[i]) && s[i] != '.')
-				throw std::invalid_argument("Invalid argument 3");
-		}
+		if (!isdigit(s[i]))
+			if (s[i] != '.' && !(s[i] == 'f' && i == str_len - 1))
+				throw std::invalid_argument("Invalid argument 1");
 	}
+	check_put_zero(s, point_place, str_len, put_zero);
+	print_double_float(s, put_zero);
 }
 
 void	check_int(const std::string &s, size_t str_len)
@@ -93,17 +87,30 @@ void	check_int(const std::string &s, size_t str_len)
 	value = atoi(s.c_str());
 	if (value >= 20 && value <= 126)
 		std::cout << "char : " << static_cast<char>(value) << std::endl;
+	else if ((value >= 0 && value < 20) || value == 127)
+		std::cout << "char : Non displayable" << std::endl;
 	else
 		std::cout << "char : impossible" << std::endl;
 	std::cout << "int : " << static_cast<int>(value) << std::endl;
-	std::cout << "float : " << static_cast<float>(value) << std::endl;
-	std::cout << "double : " << static_cast<double>(value) << std::endl;
+	std::cout << "float : " << static_cast<float>(value) << ".0f" << std::endl;
+	std::cout << "double : " << static_cast<double>(value) << ".0" << std::endl;
 
 }
 
 void	pseudo_literals(const std::string &s)
 {
-	
+	std::string	pl[4] = {"nan", "inf", "+inf", "-inf"};
+	bool	good = false;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (s.compare(pl[i]) || s.compare(pl[i] + "f"))
+			good = true;
+	}
+	if (good)
+		print_pl(s);
+	else
+		throw std::invalid_argument("Invalid argument 5");
 }
 
 void	ScalarConverter::convert(const std::string &s)
@@ -114,8 +121,8 @@ void	ScalarConverter::convert(const std::string &s)
 	{
 		std::cout << "char : " << static_cast<char>(s[0]) << std::endl;
 		std::cout << "int : " << static_cast<int>(s[0]) << std::endl;
-		std::cout << "float : " << static_cast<float>(s[0]) << std::endl;
-		std::cout << "double : " << static_cast<double>(s[0]) << std::endl;
+		std::cout << "float : " << static_cast<float>(s[0]) << ".0f" << std::endl;
+		std::cout << "double : " << static_cast<double>(s[0]) << ".0" << std::endl;
 	}
 	else
 	{
