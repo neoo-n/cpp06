@@ -42,7 +42,7 @@ void	check_put_zero(const std::string &s, size_t point_place, size_t str_len, bo
 
 void	print_double_float(const std::string &s, bool put_zero)
 {
-	float		value;
+	float	value;
 
 	value = atof(s.c_str());
 	if (value >= 32 && value <= 126)
@@ -64,29 +64,67 @@ void	print_double_float(const std::string &s, bool put_zero)
 
 void	check_double_float(const std::string &s, size_t point_place, size_t str_len)
 {
-	bool		put_zero = true;
+	bool	put_zero = true;
+	size_t	i = 0;
 
 	if (point_place != s.rfind('.'))
 		throw std::invalid_argument("Invalid argument 2");
-	for (size_t i = 0; i < str_len; i++)
+	if (s[i] == '-' || s[i] == '+')
+		i++;
+	while (i < str_len)
 	{
-		if (!isdigit(s[i]))
+		if (!std::isdigit(s[i]))
 			if (s[i] != '.' && !(s[i] == 'f' && i == str_len - 1))
 				throw std::invalid_argument("Invalid argument 1");
+		i++;
 	}
 	check_put_zero(s, point_place, str_len, put_zero);
 	print_double_float(s, put_zero);
 }
 
+void	print_pl(const std::string &s)
+{
+	std::cout << "char : impossible" << std::endl;
+	std::cout << "int : impossible" << std::endl;
+	std::cout << "float : " << s << std::endl;
+	std::cout << "double : " << s << std::endl;
+}
+
+void	pseudo_literals(const std::string &s)
+{
+	std::string	pl[4] = {"nan", "inf", "+inf", "-inf"};
+	bool		good = false;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (!s.compare(pl[i]) || !s.compare(pl[i] + "f"))
+			good = true;
+	}
+	if (good)
+		print_pl(s);
+	else
+		throw std::invalid_argument("Invalid argument 5");
+}
+
 void	check_int(const std::string &s, size_t str_len)
 {
-	int	value;
-	for(size_t i = 0; i < str_len; i++)
-		if (!isdigit(s[i]))
-			throw std::invalid_argument("Invalid argument 4");
+	int		value;
+	size_t	i = 0;
+
+	if (s[i] == '-' || s[i] == '+')
+		i++;
+	while (i < str_len)
+	{
+		if (!std::isdigit(s[i]))
+		{
+			pseudo_literals(s);
+			return ;
+		}
+		i++;
+	}
 	value = atoi(s.c_str());
 	if (value >= 20 && value <= 126)
-		std::cout << "char : " << static_cast<char>(value) << std::endl;
+		std::cout << "char : '" << static_cast<char>(value) << "'" << std::endl;
 	else if ((value >= 0 && value < 20) || value == 127)
 		std::cout << "char : Non displayable" << std::endl;
 	else
@@ -97,29 +135,13 @@ void	check_int(const std::string &s, size_t str_len)
 
 }
 
-void	pseudo_literals(const std::string &s)
-{
-	std::string	pl[4] = {"nan", "inf", "+inf", "-inf"};
-	bool	good = false;
-
-	for (int i = 0; i < 4; i++)
-	{
-		if (s.compare(pl[i]) || s.compare(pl[i] + "f"))
-			good = true;
-	}
-	if (good)
-		print_pl(s);
-	else
-		throw std::invalid_argument("Invalid argument 5");
-}
-
 void	ScalarConverter::convert(const std::string &s)
 {
 	size_t	point_place = 0;
 	size_t	str_len = s.size();
-	if (str_len == 1)
+	if (str_len == 1 && !std::isdigit(s[0]))
 	{
-		std::cout << "char : " << static_cast<char>(s[0]) << std::endl;
+		std::cout << "char : \'" << static_cast<char>(s[0]) << "\'" << std::endl;
 		std::cout << "int : " << static_cast<int>(s[0]) << std::endl;
 		std::cout << "float : " << static_cast<float>(s[0]) << ".0f" << std::endl;
 		std::cout << "double : " << static_cast<double>(s[0]) << ".0" << std::endl;

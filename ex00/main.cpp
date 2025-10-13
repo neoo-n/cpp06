@@ -18,6 +18,5 @@ int	main(int argc, char** argv)
 		std::cerr << RED << e.what() << std::endl << WHITE;
 		return (2);
 	}
-	
 	return (0);
 }
