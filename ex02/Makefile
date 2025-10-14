@@ -1,5 +1,5 @@
-NAME	=	serializer
-SRCS	=	main.cpp Serializer.cpp Data.cpp
+NAME	=	base
+SRCS	=	main.cpp Base.cpp A.cpp B.cpp C.cpp
 OBJS	=	${SRCS:.cpp=.o}
 CC		=	c++
 CFLAGS	=	-Werror -Wextra -Wall -std=c++98

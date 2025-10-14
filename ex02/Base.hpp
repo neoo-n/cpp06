@@ -2,9 +2,7 @@
 # define BASE_HPP
 
 # include <iostream>
-# include "A.hpp"
-# include "B.hpp"
-# include "C.hpp"
+# include <cstdlib>
 
 # define BLUE "\033[34m"
 # define WHITE "\033[0m"
