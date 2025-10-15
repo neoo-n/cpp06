@@ -12,11 +12,6 @@
 # define DEBUG false
 
 class B : public Base
-{
-	private:
-
-	public:
-		~B();
-};
+{};
 
 #endif

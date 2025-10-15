@@ -6,6 +6,7 @@
 # include <exception>
 # include <cctype>
 # include <cstdlib>
+# include <string>
 
 # define BLUE "\033[34m"
 # define WHITE "\033[0m"

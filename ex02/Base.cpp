@@ -11,7 +11,7 @@ Base::~Base()
 }
 
 // ----------------------------------- METHODS ------------------------------------------
-Base	*Base::generate(void)
+Base	*generate(void)
 {
 	int	random;
 	srand(time(0));
@@ -29,7 +29,7 @@ Base	*Base::generate(void)
 	}
 }
 
-void	Base::identify(Base* p)
+void	identify(Base* p)
 {
 	if (!dynamic_cast<A *>(p))
 	{
@@ -47,7 +47,7 @@ void	Base::identify(Base* p)
 		std::cout << "It is of class A" << std::endl;
 }
 
-void	Base::identify(Base& p)
+void	identify(Base& p)
 {
 	try
 	{

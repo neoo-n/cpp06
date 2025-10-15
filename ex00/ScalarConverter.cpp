@@ -86,26 +86,38 @@ void	check_double_float(const std::string &s, size_t point_place, size_t str_len
 	print_double_float(s, put_zero);
 }
 
-void	print_pl(const std::string &s)
+void	print_pl(const std::string &s, int good)
 {
 	std::cout << "char : impossible" << std::endl;
 	std::cout << "int : impossible" << std::endl;
-	std::cout << "float : " << s << std::endl;
-	std::cout << "double : " << s << std::endl;
+	std::cout << "float : " << s;
+	if (good == 1)
+		std::cout << "f";
+	std::cout << std::endl;
+	if (good == 1)
+		std::cout << "double : " << s << std::endl;
+	else
+	{
+		std::string sd = s;
+		sd = sd.erase(sd.size() - 1, 1);
+		std::cout << "double : " << sd << std::endl;
+	}
 }
 
 void	pseudo_literals(const std::string &s)
 {
 	std::string	pl[4] = {"nan", "inf", "+inf", "-inf"};
-	bool		good = false;
+	int			good = 0;
 
 	for (int i = 0; i < 4; i++)
 	{
-		if (!s.compare(pl[i]) || !s.compare(pl[i] + "f"))
-			good = true;
+		if (!s.compare(pl[i]))
+			good = 1;
+		else if (!s.compare(pl[i] + "f"))
+			good = 2;
 	}
 	if (good)
-		print_pl(s);
+		print_pl(s, good);
 	else
 		throw std::invalid_argument("Invalid argument");
 }

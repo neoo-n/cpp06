@@ -8,18 +8,17 @@ int main()
 {
 	Base	b;
 	Base 	*temp;
-	Base 	*temp1 = b.generate();;
+	Base 	&temp1 = *generate();;
 
-	b.identify(*temp1);
+	identify(temp1);
 
 	sleep(1);
-	temp = b.generate();
-	b.identify(temp);
+	temp = generate();
+	identify(temp);
 	
 
 	delete temp;
 	temp = NULL;
-	delete temp1;
-	temp1 = NULL;
+	delete &temp1;
 	return (0);
 }
