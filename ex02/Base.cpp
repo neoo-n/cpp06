@@ -21,11 +21,11 @@ Base	*generate(void)
 	switch (random)
 	{
 		case 0:
-			return (new A());
+			return (new(std::nothrow) A());
 		case 1:
-			return (new B());
+			return (new(std::nothrow) B());
 		default:
-			return (new C());
+			return (new(std::nothrow) C());
 	}
 }
 

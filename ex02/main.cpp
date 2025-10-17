@@ -8,17 +8,25 @@ int main()
 {
 	Base	b;
 	Base 	*temp;
-	Base 	&temp1 = *generate();;
+	Base 	*temp_ref = generate();
 
-	identify(temp1);
+	if (temp_ref)
+	{
+		Base 	&temp1 = *temp_ref;
+		identify(temp1);
+	}
+	else
+		std::cerr << "Error : bad allocation with new" << std::endl;
 
 	sleep(1);
 	temp = generate();
-	identify(temp);
-	
+	if (temp)
+		identify(temp);
+	else
+		std::cerr << "Error : bad allocation with new" << std::endl;
 
 	delete temp;
 	temp = NULL;
-	delete &temp1;
+	delete temp_ref;
 	return (0);
 }
